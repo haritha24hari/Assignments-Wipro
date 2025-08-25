@@ -1,0 +1,39 @@
+<mat-toolbar color="primary">
+  🎵 Music Playlist
+</mat-toolbar>
+
+<mat-card>
+  <mat-form-field appearance="fill" style="width: 48%; margin-right: 4%;">
+    <mat-label>Filter by Artist</mat-label>
+    <mat-select [(ngModel)]="selectedArtist">
+      <mat-option *ngFor="let artist of artists" [value]="artist">{{ artist }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" style="width: 48%;">
+    <mat-label>Filter by Album</mat-label>
+    <mat-select [(ngModel)]="selectedAlbum">
+      <mat-option *ngFor="let album of albums" [value]="album">{{ album }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-card>
+
+<div class="song-grid">
+  <mat-card *ngFor="let song of filteredSongs" [ngClass]="{ 'top-rated': song.rating === 5 }">
+    <mat-card-header>
+      <mat-card-title>{{ song.name }}</mat-card-title>
+      <mat-card-subtitle>{{ song.artist }} • {{ song.album }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>Duration: {{ song.duration }}</p>
+      <div class="stars">
+        <mat-icon *ngFor="let _ of getStarsArray(song.rating)">star</mat-icon>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-icon-button color="primary">
+        <mat-icon>play_arrow</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

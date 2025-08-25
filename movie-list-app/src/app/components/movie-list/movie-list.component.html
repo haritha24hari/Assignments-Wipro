@@ -1,0 +1,39 @@
+<div class="container">
+  <h2>🎬 Movie List</h2>
+
+  <!-- Average Rating -->
+  <div class="average-rating">
+    <span>Average Rating:</span>
+    <mat-icon *ngFor="let star of getStars(Math.round(averageRating))">star</mat-icon>
+    ({{ averageRating.toFixed(1) }}/5)
+  </div>
+
+  <!-- Genre Filter -->
+  <mat-form-field appearance="fill" class="genre-filter">
+    <mat-label>Filter by Genre</mat-label>
+    <mat-select [(ngModel)]="selectedGenre">
+      <mat-option *ngFor="let genre of genres" [value]="genre">{{ genre }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Movie Cards -->
+  <div class="movie-grid">
+    <mat-card
+      class="movie-card"
+      *ngFor="let movie of filteredMovies"
+      [ngClass]="{ 'top-rated': isTopRated(movie) }"
+    >
+      <img mat-card-image [src]="movie.poster" [alt]="movie.title" />
+      <mat-card-title>{{ movie.title }}</mat-card-title>
+      <mat-card-subtitle>{{ movie.genre }}</mat-card-subtitle>
+
+      <div class="rating">
+        <mat-icon *ngFor="let star of getStars(movie.rating)">star</mat-icon>
+      </div>
+
+      <mat-card-content>
+        <p>{{ movie.description }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
